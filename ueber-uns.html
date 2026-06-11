@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über uns – Grünwerk Gartenpflege</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-pill-wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Grün<span>werk</span></a>
+      <ul class="nav-links-center">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="sonderkonditionen.html">Sonderkonditionen</a></li>
+        <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="anfrage.html" class="nav-cta-btn">Anfragen</a>
+        <button class="theme-btn" id="themeToggle" aria-label="Hell/Dunkel wechseln">
+          <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="sonderkonditionen.html">Sonderkonditionen</a>
+    <a href="ueber-uns.html" class="active">Über uns</a>
+    <a href="anfrage.html">Jetzt anfragen</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main style="padding-top: 120px;">
+  <section>
+    <div class="section-inner">
+      <p class="section-label">Die Story</p>
+      <h1 class="section-title">Wer steht hinter Grünwerk?</h1>
+      <p class="section-sub">Ich bin 21 Jahre alt, studiere Gartenbau in der Fachrichtung Landschaftsgestaltung und bringe theoretisches Fachwissen mit echter Leidenschaft für die Praxis zusammen.</p>
+      
+      <div class="about-grid" style="margin-top: 50px;">
+        <div>
+          <h3 style="margin-bottom: 15px;">Mein Versprechen</h3>
+          <p style="color: var(--text-muted); line-height: 1.7;">Bei mir gibt es keine unpersönlichen Callcenter oder wechselnde Subunternehmer. Sie sprechen von der Beratung über den Kostenvoranschlag bis zur finalen Ausführung im Garten immer direkt mit mir persönlich.</p>
+        </div>
+        <div class="about-img-wrap">
+          <img src="img/what-we-do-right-image.png" alt="Gartenpflege Troisdorf">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Grünwerk</div>
+      <p class="footer-sub">Gartenpflege · Troisdorf &amp; Umgebung</p>
+    </div>
+    <nav class="footer-links">
+      <a href="leistungen.html">Leistungen</a>
+      <a href="sonderkonditionen.html">Sonderkonditionen</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="anfrage.html">Anfrage</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <p class="footer-copy">© 2025 Grünwerk · Alle Rechte vorbehalten</p>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  html.setAttribute('data-theme', localStorage.getItem('gw-theme') || 'light');
+  function toggleTheme() {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('gw-theme', next);
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+</script>
+</body>
+</html>
