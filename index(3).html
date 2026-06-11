@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grünwerk – Gartenpflege Troisdorf</title>
+  <meta name="description" content="Professionelle Gartenpflege in Troisdorf und Umgebung. Mit Herz für Senioren und Menschen mit Einschränkungen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --green:        #3d7a4f;
+      --green-light:  #6aab7e;
+      --green-pale:   #e8f2eb;
+      --cream:        #faf9f6;
+      --text:         #1a1a1a;
+      --text-muted:   #5c5c5c;
+      --border:       #dedad3;
+      --card-bg:      #ffffff;
+      --nav-bg:       rgba(250,249,246,0.94);
+      --hero-overlay: rgba(8,26,14,0.50);
+      --shadow:       0 2px 20px rgba(0,0,0,0.07);
+      --radius:       14px;
+      --transition:   0.3s ease;
+    }
+    [data-theme="dark"] {
+      --cream:        #0d1810;
+      --text:         #e5ebe6;
+      --text-muted:   #8aa690;
+      --border:       #1f2e22;
+      --card-bg:      #141f16;
+      --nav-bg:       rgba(13,24,16,0.96);
+      --green-pale:   #172219;
+      --hero-overlay: rgba(4,12,6,0.65);
+      --shadow:       0 2px 20px rgba(0,0,0,0.4);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+      font-size: 16px; /* larger base for readability */
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    }
+    .nav-pill-wrap {
+      max-width: 960px; margin: 14px auto 0;
+      padding: 0 20px;
+      position: relative;
+    }
+    .nav-inner {
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0 22px;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 28px rgba(0,0,0,0.09), 0 1px 0 rgba(255,255,255,0.6) inset;
+      transition: background var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    [data-theme="dark"] .nav-inner {
+      box-shadow: 0 2px 28px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.03) inset;
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--green); letter-spacing: -0.3px;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links-center {
+      display: flex; align-items: center; gap: 2px;
+      list-style: none;
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .nav-links-center a {
+      display: block;
+      font-size: 0.84rem; font-weight: 500;
+      color: var(--text-muted);
+      padding: 7px 14px; border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links-center a:hover { color: var(--text); background: rgba(0,0,0,0.05); }
+    [data-theme="dark"] .nav-links-center a:hover { background: rgba(255,255,255,0.07); }
+    .nav-links-center a.active { color: var(--text); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-cta-btn {
+      background: var(--green); color: #fff; border: none;
+      padding: 9px 20px; border-radius: 50px;
+      font-size: 0.83rem; font-weight: 500;
+      cursor: pointer; letter-spacing: 0.1px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .nav-cta-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+
+    /* theme toggle – clean SVG sun/moon */
+    .theme-btn {
+      background: none; border: 1px solid var(--border);
+      cursor: pointer; width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0; color: var(--text-muted);
+    }
+    .theme-btn:hover { background: var(--green-pale); border-color: var(--green-light); }
+    .theme-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    .icon-sun  { display: block; }
+    .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun  { display: none; }
+    [data-theme="dark"] .icon-moon { display: block; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 18px 18px;
+      margin: 0 20px;
+      padding: 10px 14px 18px; gap: 2px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 11px 14px; font-size: 0.95rem; color: var(--text);
+      border-radius: 10px; transition: color 0.2s, background 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--green); background: var(--green-pale); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 620px;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('img/tops-1.png');
+      background-size: cover; background-position: center;
+    }
+    [data-theme="dark"] .hero-bg {
+      background-image: url('img/tops-2.png');
+      filter: brightness(0.65);
+    }
+    .hero-overlay { position: absolute; inset: 0; background: var(--hero-overlay); transition: background var(--transition); }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+      color: #fff;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(160,210,175,0.95); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: rgba(160,210,175,0.7);
+    }
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 300; line-height: 1.1; letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+    .hero-title em { font-style: italic; color: rgba(160,210,175,0.95); }
+    .hero-sub {
+      font-size: 1.1rem; font-weight: 300; line-height: 1.7;
+      max-width: 500px; color: rgba(255,255,255,0.82); margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--green); color: #fff; border: none;
+      padding: 15px 30px; border-radius: 50px;
+      font-size: 0.92rem; font-weight: 500;
+      cursor: pointer; transition: background var(--transition), transform 0.15s;
+      display: inline-block; letter-spacing: 0.1px;
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 15px 30px; border-radius: 50px;
+      font-size: 0.92rem; font-weight: 400;
+      cursor: pointer; transition: background 0.2s; display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--card-bg); border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .trust-inner {
+      max-width: 1100px; margin: 0 auto; padding: 24px 32px;
+      display: flex; gap: 40px; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: var(--text-muted);
+    }
+    .trust-item strong { color: var(--text); font-weight: 600; }
+    .trust-check {
+      width: 18px; height: 18px; flex-shrink: 0;
+      color: var(--green);
+    }
+    .trust-check svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 32px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--green); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; line-height: 1.2; letter-spacing: -0.5px;
+      color: var(--text); margin-bottom: 18px;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--text-muted);
+      line-height: 1.75; max-width: 540px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--green-pale); transition: background var(--transition); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-badges { display: flex; flex-direction: column; gap: 14px; margin-top: 36px; }
+    .about-badge {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 18px 20px; background: var(--card-bg);
+      border-radius: var(--radius); border: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .about-badge-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--green-pale); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green); transition: background var(--transition);
+    }
+    .about-badge-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .about-badge-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .about-badge-text span { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+    .about-img-wrap {
+      border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+      background: var(--green-pale); position: relative;
+    }
+    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-label {
+      position: absolute; bottom: 20px; left: 20px; right: 20px;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+      border-radius: 12px; padding: 14px 18px;
+      font-size: 0.85rem; color: #1a1a1a;
+    }
+    [data-theme="dark"] .about-img-label { background: rgba(20,31,22,0.92); color: var(--text); }
+    .about-img-label strong { display: block; font-weight: 600; margin-bottom: 2px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--cream); transition: background var(--transition); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 18px; margin-top: 52px;
+    }
+    .service-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 30px 26px;
+      transition: box-shadow 0.25s, transform 0.2s, background var(--transition), border-color var(--transition);
+    }
+    .service-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .service-icon-wrap {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: var(--green-pale); color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      transition: background var(--transition);
+    }
+    .service-icon-wrap svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card h3 { font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 9px; }
+    .service-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+    .service-tag {
+      display: inline-block; margin-top: 16px;
+      font-size: 0.73rem; font-weight: 600; letter-spacing: 0.3px;
+      color: var(--green); background: var(--green-pale);
+      padding: 5px 11px; border-radius: 50px;
+      transition: background var(--transition);
+    }
+    .service-tag.soon { color: var(--text-muted); background: var(--border); }
+
+    /* ── SONDERKONDITIONEN ── */
+    #sonder { background: var(--green); color: #fff; position: relative; overflow: hidden; }
+    #sonder::after {
+      content: ''; position: absolute; right: -80px; top: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); pointer-events: none;
+    }
+    .sonder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    #sonder .section-label { color: rgba(200,235,210,0.75); }
+    #sonder .section-title { color: #fff; }
+    #sonder .section-sub { color: rgba(255,255,255,0.78); max-width: 100%; font-size: 1rem; line-height: 1.75; }
+    .sonder-cards { display: flex; flex-direction: column; gap: 14px; }
+    .sonder-card {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius); padding: 22px 24px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: background 0.2s;
+    }
+    .sonder-card:hover { background: rgba(255,255,255,0.15); }
+    .sonder-card-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: rgba(255,255,255,0.15); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.9);
+    }
+    .sonder-card-icon svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .sonder-card h4 { font-size: 0.93rem; font-weight: 600; color: #fff; margin-bottom: 5px; }
+    .sonder-card p { font-size: 0.86rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+    .sonder-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 30px; background: #fff; color: var(--green);
+      padding: 14px 28px; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 600; transition: transform 0.15s, opacity 0.2s;
+    }
+    .sonder-cta:hover { transform: translateY(-1px); opacity: 0.92; }
+
+    /* ── WHY ── */
+    #why { background: var(--green-pale); transition: background var(--transition); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+    .why-card {
+      padding: 30px 24px; background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .why-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--green);
+      margin-bottom: 12px; line-height: 1;
+    }
+    .why-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 9px; }
+    .why-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── CTA ── */
+    .cta-strip {
+      background: var(--card-bg); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 32px; text-align: center;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .cta-strip h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 300; margin-bottom: 12px;
+    }
+    .cta-strip p { font-size: 1rem; color: var(--text-muted); margin-bottom: 32px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-dark {
+      background: var(--text); color: var(--cream);
+      padding: 15px 30px; border-radius: 50px;
+      font-size: 0.92rem; font-weight: 500; display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-dark:hover { opacity: 0.8; }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--border);
+      color: var(--text); padding: 15px 30px; border-radius: 50px;
+      font-size: 0.92rem; font-weight: 500; display: inline-flex;
+      align-items: center; gap: 8px;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--green); color: var(--green); }
+    .btn-outline svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 32px 36px; background: var(--cream);
+      border-top: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: flex-start; gap: 28px;
+    }
+    .footer-logo { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: var(--green); }
+    .footer-sub { font-size: 0.83rem; color: var(--text-muted); margin-top: 5px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links-center { display: none; }
+      .nav-cta-btn { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .sonder-grid { grid-template-columns: 1fr; gap: 40px; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .about-img-wrap { aspect-ratio: 16/9; }
+      section { padding: 72px 20px; }
+    }
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .trust-inner { gap: 20px; }
+      section { padding: 60px 20px; }
+    }
+
+    /* ── FADE IN ── */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-pill-wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Grün<span>werk</span></a>
+      <ul class="nav-links-center">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="sonderkonditionen.html">Sonderkonditionen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="anfrage.html" class="nav-cta-btn">Anfragen</a>
+        <button class="theme-btn" id="themeToggle" aria-label="Hell/Dunkel wechseln">
+          <span class="icon-sun">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </span>
+          <span class="icon-moon">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="sonderkonditionen.html">Sonderkonditionen</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="anfrage.html">Jetzt anfragen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Troisdorf &amp; Umgebung</p>
+    <h1 class="hero-title">
+      Ihr Garten in<br><em>besten Händen.</em>
+    </h1>
+    <p class="hero-sub">
+      Professionelle Gartenpflege mit Herz – für jeden Haushalt.
+      Sonderkonditionen für Senioren und Menschen mit Einschränkungen.
+    </p>
+    <div class="hero-actions">
+      <a href="anfrage.html" class="btn-primary">Kostenlos anfragen</a>
+      <a href="leistungen.html" class="btn-ghost">Alle Leistungen</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <span class="trust-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span>Versichert &amp; <strong>zuverlässig</strong></span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span>Kostenloser <strong>Kostenvoranschlag</strong></span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span><strong>Sonderkonditionen</strong> für Senioren</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span>Mo–Sa <strong>7–20 Uhr</strong> erreichbar</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span>Gartenbau-<strong>Studium</strong> mit Fachwissen</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="fade-up">
+        <p class="section-label">Über mich</p>
+        <h2 class="section-title">Gartenbau mit Leidenschaft &amp; Fachwissen</h2>
+        <p class="section-sub">
+          Ich bin 21 Jahre alt und studiere Gartenbau mit Spezialisierung auf Landschaftsgestaltung.
+          Mein Versprechen: Qualitätsarbeit zu fairen Preisen, zuverlässige Termine und eine persönliche
+          Beratung, die wirklich auf Ihre Bedürfnisse eingeht.
+        </p>
+        <div class="about-badges">
+          <div class="about-badge">
+            <div class="about-badge-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="about-badge-text">
+              <strong>Fachkundiges Studium</strong>
+              <span>Aktuelles Gartenbau-Wissen direkt aus dem Studium – keine veralteten Methoden.</span>
+            </div>
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="about-badge-text">
+              <strong>Transparente Preise</strong>
+              <span>Kostenvoranschlag vor Arbeitsbeginn – keine Überraschungen auf der Rechnung.</span>
+            </div>
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="about-badge-text">
+              <strong>Persönlich &amp; verlässlich</strong>
+              <span>Sie sprechen immer mit mir direkt – kein Callcenter, keine leeren Versprechen.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img-wrap fade-up">
+        <img src="img/what-we-do-right-image.png" alt="Gartenpflege Troisdorf">
+        <div class="about-img-label">
+          <strong>Grünwerk · Troisdorf</strong>
+          Ihr regionaler Gartenpflege-Profi
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="fade-up" style="max-width:560px;">
+      <p class="section-label">Leistungen</p>
+      <h2 class="section-title">Alles was Ihr Garten braucht</h2>
+      <p class="section-sub">Von der einfachen Rasenpflege bis zur Gartengestaltung – was ich heute anbiete, und was mit dem Studium dazukommt.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Grünbelag-Entfernung</h3>
+        <p>Moos, Algen und Belag auf Terrassen, Wegen und Einfahrten – schonend und gründlich entfernt.</p>
+        
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>Gartenpflege &amp; Schnitt</h3>
+        <p>Rasenmähen, Heckenschnitt, Strauchpflege – regelmäßig oder einmalig, je nach Bedarf.</p>
+        
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 22V12"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M8 6a4 4 0 0 1 8 0"/><path d="M2.5 8.5s1.5-2 4.5-2"/><path d="M21.5 8.5s-1.5-2-4.5-2"/></svg>
+        </div>
+        <h3>Bepflanzung &amp; Beete</h3>
+        <p>Beetpflege, Neubepflanzung und Begrünung von Flächen mit pflegeleichten Pflanzen.</p>
+        
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </div>
+        <h3>Unkraut &amp; Aufräumen</h3>
+        <p>Unkrautbekämpfung auf Beeten, Wegen und Terrassen sowie Grundstücksräumung.</p>
+        
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Gartengestaltung</h3>
+        <p>Planung und Gestaltung von Privatgärten – modern, naturnah oder klassisch.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 5 3-3 4 6"/><path d="M21 21H3"/></svg>
+        </div>
+        <h3>Rasenpflege &amp; -anlage</h3>
+        <p>Neue Rasenflächen anlegen, Rasen reparieren, düngen und fachgerecht pflegen.</p>
+        
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:40px;">
+      <a href="leistungen.html" class="btn-outline">
+        Alle Leistungen ansehen
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SONDERKONDITIONEN -->
+<section id="sonder">
+  <div class="section-inner">
+    <div class="sonder-grid">
+      <div class="fade-up">
+        <p class="section-label">Soziales Engagement</p>
+        <h2 class="section-title">Gartenpflege für jeden – fair und zugänglich</h2>
+        <p class="section-sub">
+          Ein schöner Garten schenkt Lebensqualität. Deshalb biete ich besondere Konditionen
+          für Menschen an, die Unterstützung brauchen – weil das einfach richtig ist.
+        </p>
+        <a href="sonderkonditionen.html" class="sonder-cta">
+          Mehr zu Sonderkonditionen
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="sonder-cards fade-up">
+        <div class="sonder-card">
+          <div class="sonder-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <h4>Senioren-Rabatt</h4>
+            <p>Rentner und ältere Menschen erhalten reduzierte Preise – weil ein gepflegter Garten im Alter besonders wertvoll ist.</p>
+          </div>
+        </div>
+        <div class="sonder-card">
+          <div class="sonder-card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <h4>Menschen mit Einschränkungen</h4>
+            <p>Wer körperlich eingeschränkt ist und seinen Garten nicht selbst pflegen kann, bekommt von mir besondere Unterstützung.</p>
+          </div>
+        </div>
+        <div class="sonder-card">
+          <div class="sonder-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <h4>Persönliche Absprache</h4>
+            <p>Jeder Fall ist anders. Sprechen Sie mich einfach an – wir finden gemeinsam eine faire Lösung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="section-inner">
+    <div class="fade-up">
+      <p class="section-label">Warum Grünwerk</p>
+      <h2 class="section-title">Was mich unterscheidet</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-num">01</div>
+        <h4>Aktuelles Fachwissen</h4>
+        <p>Ich studiere Gartenbau – mein Wissen ist frisch aus dem Hörsaal und direkt anwendbar.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">02</div>
+        <h4>Regional &amp; persönlich</h4>
+        <p>Troisdorf ist meine Heimat. Ich bin kein anonymes Unternehmen – Sie sprechen immer mit mir.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">03</div>
+        <h4>Faire Preise</h4>
+        <p>Sie zahlen für gute Arbeit – nicht für Overhead. Transparente Kostenvoranschläge vor Beginn.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">04</div>
+        <h4>Zuverlässig</h4>
+        <p>Termine werden eingehalten. Wenn sich etwas ändert, melde ich mich immer vorher.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">05</div>
+        <h4>Nachhaltig</h4>
+        <p>Umweltbewusste Methoden wo möglich – kein sinnloser Chemikalieneinsatz.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">06</div>
+        <h4>Soziale Verantwortung</h4>
+        <p>Sonderkonditionen für Senioren und Menschen mit Einschränkungen – ein schöner Garten für alle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-strip fade-up">
+  <h2>Bereit für einen gepflegten Garten?</h2>
+  <p>Kostenlose Beratung vor Ort – unverbindlich und ohne Verpflichtung.</p>
+  <div class="cta-actions">
+    <a href="anfrage.html" class="btn-dark">Jetzt Anfrage stellen</a>
+    <a href="tel:+4917164731822" class="btn-outline">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+      Direkt anrufen
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Grünwerk</div>
+      <p class="footer-sub">Gartenpflege · Troisdorf &amp; Umgebung</p>
+    </div>
+    <nav class="footer-links">
+      <a href="leistungen.html">Leistungen</a>
+      <a href="sonderkonditionen.html">Sonderkonditionen</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="anfrage.html">Anfrage</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <p class="footer-copy">© 2025 Grünwerk · Alle Rechte vorbehalten</p>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  html.setAttribute('data-theme', localStorage.getItem('gw-theme') || 'light');
+
+  function toggleTheme() {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('gw-theme', next);
+  }
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
