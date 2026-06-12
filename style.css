@@ -629,33 +629,38 @@
   font-family: 'Fraunces', serif; font-size: 2.1rem; font-weight: 600; color: var(--green); line-height: 1;
 }
 .fact-item .fact-label { font-size: 0.82rem; color: var(--text-muted); }
-/* ── RESPONSIVE NAVIGATION FIXED ── */
+/* ── DER RICHTIGE NAVIGATION-FIX ── */
 
-/* Ab 1050px Bildschirmbreite: Wenn die Elemente anfangen zu kollidieren */
-@media (max-width: 1050px) {
+/* Sobald der Bildschirm zu eng für alles nebeneinander wird */
+@media screen and (max-width: 1024px) {
   
-  /* 1. Versteckt die schwebenden Menülinks in der Mitte */
-  .nav-links-center {
+  /* Das Wetter-Pill verschwindet, um Platz zu machen */
+  .weather-pill {
     display: none !important;
   }
+  
+  /* Die Links oben in der Leiste verschwinden rechtzeitig... */
+  .nav-inner .nav-links-center {
+    display: none !important;
+  }
+  
+  /* ...ABER im mobilen Burger-Menü werden sie weiterhin korrekt angezeigt! */
+  .mobile-menu .nav-links-center {
+    display: flex !important;
+    position: static !important; /* Hebt das starre Schweben auf */
+    transform: none !important;
+    flex-direction: column !important; /* Zeigt die Punkte sauber untereinander an */
+    align-items: stretch !important;
+    width: 100%;
+  }
 
-  /* 2. Versteckt das Wetter-Widget und die Text-Schaltfläche "Anfragen" */
-  .weather-pill,
+  /* Der Anfrage-Button wandert bei Bedarf auch mit */
   .nav-cta-btn {
     display: none !important;
   }
 
-  /* 3. Schaltet das Hamburger-Menü (Drei Striche) links neben den runden Buttons ein */
+  /* Aktiviert die drei Striche (Hamburger) oben rechts */
   .hamburger {
     display: flex !important;
-  }
-}
-
-/* Für sehr kleine Smartphones (unter 480px) */
-@media (max-width: 480px) {
-  /* Blendet den Senioren-Modus (.a11y-btn) oder das Theme-Toggle aus, 
-     falls das Logo auf extrem kleinen Bildschirmen immer noch bedrängt wird */
-  .a11y-btn {
-    display: none !important;
   }
 }
