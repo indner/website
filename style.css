@@ -672,3 +672,22 @@
     display: flex !important;
   }
 }
+/* Sobald die Leiste zu eng wird (unter 1150px) */
+@media screen and (max-width: 1150px) {
+  
+  /* Blendet die mittleren Links in der Hauptleiste aus */
+  .nav-inner .nav-links-center {
+    display: none !important;
+  }
+  
+  /* Blendet das Wetter-Pill und den Anfrage-Button aus */
+  .weather-pill,
+  .nav-cta-btn {
+    display: none !important;
+  }
+  
+  /* Aktiviert die drei Striche (Hamburger) oben rechts */
+  .hamburger {
+    display: flex !important;
+  }
+}
