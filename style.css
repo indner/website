@@ -634,3 +634,28 @@
   font-family: 'Fraunces', serif; font-size: 2.1rem; font-weight: 600; color: var(--green); line-height: 1;
 }
 .fact-item .fact-label { font-size: 0.82rem; color: var(--text-muted); }
+/* ── BEHEBT DIE ÜBERLAPPUNG IM HEADER ── */
+
+/* Verhindert, dass das Hauptmenü in die anderen Elemente reinschiebt */
+.nav-links-center {
+  display: flex;
+  gap: 15px; /* Oder dein bestehender Abstand */
+  flex-shrink: 1; /* Erlaubt dem Menü, bei Platzmangel kleiner zu werden */
+}
+
+/* Gibt dem inneren Container eine saubere Flex-Verteilung */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px; /* Garantiert Mindestabstand zwischen Logo, Menü und rechtem Bereich */
+}
+
+/* Sorgt dafür, dass der rechte Bereich stabil nebeneinander bleibt */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0; /* Verhindert das Zusammenquetschen der Buttons */
+}
