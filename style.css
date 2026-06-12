@@ -73,7 +73,15 @@
       flex-shrink: 0;
     }
     .nav-logo span { color: var(--text); }
-    
+    .nav-links-center {
+  display: flex; 
+  align-items: center; 
+  gap: 2px;
+  list-style: none; /* Entfernt die unschönen Punkte */
+  margin: 0;
+  padding: 0;
+}
+
     .nav-links-center a {
       display: block;
       font-size: 0.84rem; font-weight: 500;
