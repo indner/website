@@ -691,3 +691,21 @@
     display: flex !important;
   }
 }
+/* ── BLITZ-REPARATUR FÜR DEN SENIOREN-MODUS ── */
+
+/* Wenn der Senioren-Modus aktiv ist (große Schrift), blenden wir die mittleren Links oben aus... */
+[data-a11y="true"] .nav-links-center,
+.a11y-active .nav-links-center,
+body.large-text .nav-links-center {
+  display: none !important;
+}
+
+/* ...und schalten stattdessen direkt das Hamburger-Menü ein, damit man die Seiten noch erreicht */
+[data-a11y="true"] .hamburger,
+.a11y-active .hamburger,
+body.large-text .hamburger {
+  display: flex !important;
+}
+
+/* Erlaubt der Leiste im Senioren-Modus, bei Bedarf etwas höher zu werden */
+[data-a11y="true"] .nav-inner,
