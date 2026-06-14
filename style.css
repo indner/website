@@ -126,13 +126,14 @@
 
     /* mobile menu */
 .mobile-menu {
+    align-items: flex-end;
     display: flex;
     flex-direction: column;
     background: var(--nav-bg);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border: 1px solid var(--border);
-    border-radius: 0 0 18px 18px;
+    border-radius: 18px;
     margin: 0 20px;
     padding: 10px 14px 18px;
     gap: 2px;
