@@ -126,6 +126,7 @@
 
     /* mobile menu */
 .mobile-menu {
+    display: flex;
     flex-direction: column;
     background: var(--nav-bg);
     backdrop-filter: saturate(180%) blur(20px);
