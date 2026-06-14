@@ -363,7 +363,7 @@
     <script>
         // Schließt das Menü, sobald der Nutzer scrollt
         window.addEventListener('scroll', () => {
-            const menu = document.querySelector('.nav-links-center');
+            const menu = document.getElementById('mobileMenu');
             
             // Tausche 'open' aus, falls deine "Aktiv-Klasse" anders heißt
             if (menu && menu.classList.contains('open')) {
