@@ -126,7 +126,7 @@
 
     /* mobile menu */
 .mobile-menu {
-    align-items: flex-end;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     background: var(--nav-bg);
