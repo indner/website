@@ -735,4 +735,4 @@ body.large-text .hamburger {
 }
 
 /* Erlaubt der Leiste im Senioren-Modus, bei Bedarf etwas höher zu werden */
-[data-a11y="true"] .nav-inner,
+[data-a11y="true"] .nav-inner
