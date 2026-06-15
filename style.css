@@ -97,7 +97,7 @@
   background: var(--green); 
   color: #fff; 
   border: none;
-   width: 36px;                /* Exakte Breite wie das Wetter-Inlay/Theme-Button */
+   width: 56px;                /* Exakte Breite wie das Wetter-Inlay/Theme-Button */
     height: 36px;               /* Exakte Höhe wie das Wetter-Inlay/Theme-Button */
     padding: 0;                 /* Kein Padding, damit er nicht eiförmig wird */
     border-radius: 50%; 
