@@ -98,7 +98,7 @@
   color: #fff; 
   border: none;
   /* Weniger Abstand oben/unten (6px statt 9px), mehr Abstand links/rechts (20px) */
-  padding: 6px 20px; 
+  padding: 0px 14px; 
   border-radius: 50px;
   font-size: 0.83rem; 
   font-weight: 500;
