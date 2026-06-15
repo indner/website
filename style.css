@@ -106,7 +106,7 @@
   letter-spacing: 0.1px;
   transition: background 0.2s, transform 0.15s;
   display: inline-block;
-  /* Verhindert, dass der Button höher wird als die anderen Elemente */
+  align-items: center;       
   line-height: 1.5; 
 }
 .nav-cta-btn:hover { 
