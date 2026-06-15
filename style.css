@@ -94,14 +94,26 @@
     .nav-links-center a.active { color: var(--text); font-weight: 600; }
     .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .nav-cta-btn {
-      background: var(--green); color: #fff; border: none;
-      padding: 9px 12px; border-radius: 50px;
-      font-size: 0.83rem; font-weight: 500;
-      cursor: pointer; letter-spacing: 0.1px;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-block;
-    }
-    .nav-cta-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+  background: var(--green); 
+  color: #fff; 
+  border: none;
+  /* Weniger Abstand oben/unten (6px statt 9px), mehr Abstand links/rechts (20px) */
+  padding: 6px 20px; 
+  border-radius: 50px;
+  font-size: 0.83rem; 
+  font-weight: 500;
+  cursor: pointer; 
+  letter-spacing: 0.1px;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+  /* Verhindert, dass der Button höher wird als die anderen Elemente */
+  line-height: 1.5; 
+}
+.nav-cta-btn:hover { 
+  background: var(--green-light); 
+  transform: translateY(-1px); 
+}
+
 
     /* theme toggle – clean SVG sun/moon */
     .theme-btn {
